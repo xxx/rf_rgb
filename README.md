@@ -79,7 +79,7 @@ and prevent `usbhid` from taking the device over. If you're in that boat, try th
 
 ## Protocol Notes
 
-When commands are send from the host to the OUT endpoint, there is a response that can
+When commands are sent from the host to the OUT endpoint, there is a response that can
 be read from IN endpoint #3, but this module ignores these responses completely at
 time of writing.
 
