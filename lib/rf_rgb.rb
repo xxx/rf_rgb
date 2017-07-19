@@ -1,6 +1,3 @@
-require 'bundler'
-Bundler.require
-
 require 'libusb'
 require 'rf_rgb/keyboard'
 require 'rf_rgb/protocol'
