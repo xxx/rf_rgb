@@ -31,6 +31,8 @@ Or install it yourself with:
 ## Usage
 
 ```ruby
+require 'rf_rgb'
+
 keyboard = nil
 begin
  # .new without an arg will automatically find and initialize the first Realforce RGB keyboard it finds.
@@ -38,8 +40,8 @@ begin
   keyboard = RfRgb::Keyboard.new
   
   keyboard.effect_rainbow_wave
-  # keyboard.effect_shooting_star("\xff\x00\xff", RfRgb::Protocol::INTERVAL_6)
-  # keyboard.effect_pressed_key("\xaa\xee\xff")
+  # keyboard.effect_shooting_star("ff00ff", RfRgb::Protocol::INTERVAL_6)
+  # keyboard.effect_pressed_key("aaeeff")
   # keyboard.disable_effect
   keyboard.brightness = RfRgb::Protocol::BRIGHTNESS_LOW
   keyboard.actuation_height = RfRgb::Protocol::HEIGHT_22
@@ -53,6 +55,8 @@ end
 OR
 
 ```ruby
+require 'rf_rgb'
+
 RfRgb::Keyboard.run_and_release do |keyboard|
   keyboard.effect_rainbow_wave
   keyboard.brightness = RfRgb::Protocol::BRIGHTNESS_LOW
@@ -61,6 +65,8 @@ RfRgb::Keyboard.run_and_release do |keyboard|
   keyboard.save
 end
 ```
+
+Additional examples can be found in the `examples` directory.
 
 See `lib/rf_rgb/keyboard.rb` for effects and arguments, and
 `lib/rf_rgb/protocol.rb` for any needed constants.
@@ -84,7 +90,7 @@ be read from IN endpoint #3, but this module ignores these responses completely 
 time of writing.
 
 Some effects have a User 1-3 setting in the Windows UI. It's not clear what these
-are actually for, and are ignored in this module for now.
+are actually for, and are mostly ignored in this module for now.
 
 ## Development
 

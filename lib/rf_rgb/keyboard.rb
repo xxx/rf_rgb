@@ -47,6 +47,18 @@ module RfRgb
       send_message RfRgb::Protocol.disable_effects
     end
 
+    def colors=(new_colors)
+      if new_colors.is_a? String
+        new_colors = {default: new_colors}
+      end
+
+      calls = RfRgb::Protocol.user_specified_colors(new_colors)
+      reset_effect
+      calls.each do |call|
+        send_message call
+      end
+    end
+
     def effect_rainbow_wave
       reset_effect
       send_message RfRgb::Protocol.rainbow_wave

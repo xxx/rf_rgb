@@ -35,14 +35,28 @@ module RfRgb
       "\xaa\xaa\x04".force_encoding(Encoding::BINARY).freeze
     end
 
+    def self.user_specified_colors(mapping, user = USER_1)
+      m = lambda { |sym| color_transform(mapping[sym]) || color_transform(mapping[:default]) || "\x00\x00\x00" }
+
+      [
+        "\xaa\xaa\x40\x41\x3a#{user}\x00\x00\x00#{m[:grave]}#{m[:one]}#{m[:two]}#{m[:three]}#{m[:four]}#{m[:five]}#{m[:six]}#{m[:seven]}#{m[:eight]}#{m[:nine]}#{m[:zero]}#{m[:hyphen]}#{m[:equals]}\x00\x00\x00#{m[:backspace]}#{m[:tab]}#{m[:q]}#{m[:w]}\x00".force_encoding(Encoding::BINARY).freeze,
+        "\xaa\xaa\x40\x82\x3a#{user}#{m[:e]}#{m[:r]}#{m[:t]}#{m[:y]}#{m[:u]}#{m[:i]}#{m[:o]}#{m[:p]}#{m[:lbracket]}#{m[:rbracket]}#{m[:backslash]}#{m[:capslock]}#{m[:a]}#{m[:s]}#{m[:d]}#{m[:f]}#{m[:g]}#{m[:h]}#{m[:j]}\x00".force_encoding(Encoding::BINARY).freeze,
+        "\xaa\xaa\x40\x83\x3a#{user}#{m[:k]}#{m[:l]}#{m[:semicolon]}#{m[:apostrophe]}\x00\x00\x00#{m[:enter]}#{m[:lshift]}\x00\x00\x00#{m[:z]}#{m[:x]}#{m[:c]}#{m[:v]}#{m[:b]}#{m[:n]}#{m[:m]}#{m[:comma]}#{m[:period]}#{m[:slash]}\x00\x00\x00\x00".force_encoding(Encoding::BINARY).freeze,
+        "\xaa\xaa\x40\x84\x3a#{user}#{m[:rshift]}#{m[:lctrl]}\x00\x00\x00#{m[:lalt]}#{m[:space]}#{m[:ralt]}\x00\x00\x00#{m[:rctrl]}\x00\x00\x00\x00\x00\x00\x00\x00\x00#{m[:lwin]}#{m[:rwin]}#{m[:fn]}#{m[:mute]}#{m[:voldown]}#{m[:volup]}#{m[:actuation]}#{m[:ins]}\x00".force_encoding(Encoding::BINARY).freeze,
+        "\xaa\xaa\x40\x85\x3a#{user}#{m[:del]}\x00\x00\x00\x00\x00\x00#{m[:left]}#{m[:home]}#{m[:end]}\x00\x00\x00#{m[:up]}#{m[:down]}#{m[:pgup]}#{m[:pgdn]}\x00\x00\x00\x00\x00\x00#{m[:right]}#{m[:numlk]}#{m[:np_seven]}#{m[:np_four]}#{m[:np_one]}\x00\x00\x00\x00".force_encoding(Encoding::BINARY).freeze,
+        "\xaa\xaa\x40\x86\x3a#{user}#{m[:np_div]}#{m[:np_eight]}#{m[:np_five]}#{m[:np_two]}#{m[:np_zero]}#{m[:np_mult]}#{m[:np_nine]}#{m[:np_six]}#{m[:np_three]}#{m[:np_dot]}#{m[:np_minus]}#{m[:np_plus]}\x00\x00\x00#{m[:np_enter]}\x00\x00\x00#{m[:esc]}\x00\x00\x00#{m[:f1]}#{m[:f2]}\x00".force_encoding(Encoding::BINARY).freeze,
+        "\xaa\xaa\x40\xc7\x2b#{user}#{m[:f3]}#{m[:f4]}#{m[:f5]}#{m[:f6]}#{m[:f7]}#{m[:f8]}#{m[:f9]}#{m[:f10]}#{m[:f11]}#{m[:f12]}#{m[:prtsc]}#{m[:scrlk]}#{m[:pause]}\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00".force_encoding(Encoding::BINARY).freeze
+      ]
+    end
+
     def self.pressed_key_lighting(rgb_hex, user = :user0)
       # byte number 6 (just before rgb) determines user. 0x00-0x03
-      "\xaa\xaa\x62\x00\x04\x00#{rgb_hex}".force_encoding(Encoding::BINARY).freeze
+      "\xaa\xaa\x62\x00\x04\x00#{color_transform rgb_hex}".force_encoding(Encoding::BINARY).freeze
     end
 
     # Backlight color can't be changed AFAICT. Always white.
     def self.pressed_key_lighting_with_backlight(rgb_hex, user = :user0)
-      "\xaa\xaa\x63\x00\x04\x00#{rgb_hex}".force_encoding(Encoding::BINARY).freeze
+      "\xaa\xaa\x63\x00\x04\x00#{color_transform rgb_hex}".force_encoding(Encoding::BINARY).freeze
     end
 
     def self.rainbow_wave
@@ -91,6 +105,12 @@ module RfRgb
 
     def self.unswap_caps_ctrl
       "\xaa\xaa\x84\x00\x01\x00".force_encoding(Encoding::BINARY).freeze
+    end
+
+    def self.color_transform(color)
+      return nil unless color
+      return color unless color.length == 6 # rrggbb string
+      [color].pack('H*').force_encoding(Encoding::UTF_8)
     end
   end
 end
