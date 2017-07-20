@@ -85,10 +85,6 @@ and prevent `usbhid` from taking the device over. If you're in that boat, try th
 
 ## Protocol Notes
 
-When commands are sent from the host to the OUT endpoint, there is a response that can
-be read from IN endpoint #3, but this module ignores these responses completely at
-time of writing.
-
 Some effects have a User 1-3 setting in the Windows UI. It's not clear what these
 are actually for, and are mostly ignored in this module for now.
 
