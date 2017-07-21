@@ -102,6 +102,13 @@ module RfRgb
       send_and_verify RfRgb::Protocol.key_lock
     end
 
+    def locked_keys=(keys)
+      calls = RfRgb::Protocol.user_specified_key_locks(keys)
+      calls.each do |call|
+        send_and_verify call
+      end
+    end
+
     def unlock_keys
       send_and_verify RfRgb::Protocol.key_unlock
     end
