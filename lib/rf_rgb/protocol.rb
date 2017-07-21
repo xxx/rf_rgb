@@ -45,7 +45,8 @@ module RfRgb
         "\xaa\xaa\x40\x84\x3a#{user}#{m[:rshift]}#{m[:lctrl]}\x00\x00\x00#{m[:lalt]}#{m[:space]}#{m[:ralt]}\x00\x00\x00#{m[:rctrl]}\x00\x00\x00\x00\x00\x00\x00\x00\x00#{m[:lwin]}#{m[:rwin]}#{m[:fn]}#{m[:mute]}#{m[:voldown]}#{m[:volup]}#{m[:actuation]}#{m[:ins]}\x00".force_encoding(Encoding::BINARY).freeze,
         "\xaa\xaa\x40\x85\x3a#{user}#{m[:del]}\x00\x00\x00\x00\x00\x00#{m[:left]}#{m[:home]}#{m[:end]}\x00\x00\x00#{m[:up]}#{m[:down]}#{m[:pgup]}#{m[:pgdn]}\x00\x00\x00\x00\x00\x00#{m[:right]}#{m[:numlk]}#{m[:np_seven]}#{m[:np_four]}#{m[:np_one]}\x00\x00\x00\x00".force_encoding(Encoding::BINARY).freeze,
         "\xaa\xaa\x40\x86\x3a#{user}#{m[:np_div]}#{m[:np_eight]}#{m[:np_five]}#{m[:np_two]}#{m[:np_zero]}#{m[:np_mult]}#{m[:np_nine]}#{m[:np_six]}#{m[:np_three]}#{m[:np_dot]}#{m[:np_minus]}#{m[:np_plus]}\x00\x00\x00#{m[:np_enter]}\x00\x00\x00#{m[:esc]}\x00\x00\x00#{m[:f1]}#{m[:f2]}\x00".force_encoding(Encoding::BINARY).freeze,
-        "\xaa\xaa\x40\xc7\x2b#{user}#{m[:f3]}#{m[:f4]}#{m[:f5]}#{m[:f6]}#{m[:f7]}#{m[:f8]}#{m[:f9]}#{m[:f10]}#{m[:f11]}#{m[:f12]}#{m[:prtsc]}#{m[:scrlk]}#{m[:pause]}\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00".force_encoding(Encoding::BINARY).freeze
+        "\xaa\xaa\x40\xc7\x2b#{user}#{m[:f3]}#{m[:f4]}#{m[:f5]}#{m[:f6]}#{m[:f7]}#{m[:f8]}#{m[:f9]}#{m[:f10]}#{m[:f11]}#{m[:f12]}#{m[:prtsc]}#{m[:scrlk]}#{m[:pause]}\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00".force_encoding(Encoding::BINARY).freeze,
+        "\xaa\xaa\x44\x00\x0d#{user}".force_encoding(Encoding::BINARY).freeze
       ]
     end
 
