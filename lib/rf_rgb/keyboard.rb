@@ -180,6 +180,7 @@ module RfRgb
       rescue RfRgb::VerificationError
         retry_count += 1
         retry if retry_count <= retries
+        raise
       end
     end
 
