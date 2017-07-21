@@ -173,7 +173,7 @@ module RfRgb
 
     def verify_message!(data, ack)
       unless verify_message(data, ack)
-        raise RfRgb::VerificationError.new("Ack[#{ack.bytes}] did not match data[#{data.bytes}]!")
+        raise RfRgb::VerificationError, "Ack[#{ack.bytes}] did not match data[#{data.bytes}]!"
       end
     end
   end
