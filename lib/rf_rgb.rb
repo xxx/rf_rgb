@@ -4,7 +4,7 @@ require 'rf_rgb/protocol'
 require 'rf_rgb/version'
 
 module RfRgb
-  class MismatchedVerificationError < StandardError; end
+  class VerificationError < StandardError; end
 
   # 0 is silent, 4 is spewy.
   LIBUSB_DEBUG = ENV['LIBUSB_DEBUG'] || 3

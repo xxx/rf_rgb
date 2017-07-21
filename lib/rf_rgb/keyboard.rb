@@ -160,7 +160,7 @@ module RfRgb
         send_message data
         ack = receive_message
         verify_message!(data, ack)
-      rescue RfRgb::MismatchedVerificationError
+      rescue RfRgb::VerificationError
         retry_count += 1
         retry if retry_count <= retries
       end
@@ -173,7 +173,7 @@ module RfRgb
 
     def verify_message!(data, ack)
       unless verify_message(data, ack)
-        raise RfRgb::MismatchedVerificationError.new("Ack[#{ack.bytes}] did not match data[#{data.bytes}]!")
+        raise RfRgb::VerificationError.new("Ack[#{ack.bytes}] did not match data[#{data.bytes}]!")
       end
     end
   end
