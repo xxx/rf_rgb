@@ -59,6 +59,7 @@ module RfRgb
         send_and_verify call
       end
     end
+    alias_method :color=, :colors=
 
     def effect_rainbow_wave
       reset_effect
@@ -110,8 +111,17 @@ module RfRgb
     end
 
     def actuation_height=(new_height)
-      send_and_verify RfRgb::Protocol.change_actuation_height_all(new_height)
+      if new_height.is_a? String
+        send_and_verify RfRgb::Protocol.change_actuation_height_all(new_height)
+      else
+        calls = RfRgb::Protocol.user_specified_actuation_heights(new_height)
+        reset_effect
+        calls.each do |call|
+          send_and_verify call
+        end
+      end
     end
+    alias_method :actuation_heights=, :actuation_height=
 
     def swap_caps_ctrl
       send_and_verify RfRgb::Protocol.swap_caps_ctrl
