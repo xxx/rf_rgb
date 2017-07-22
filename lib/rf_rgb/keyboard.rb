@@ -148,7 +148,7 @@ module RfRgb
 
     def initialize_device(device)
       handle = device.open
-      handle.auto_detach_kernel_driver = true
+      handle.auto_detach_kernel_driver = true if LIBUSB.has_capability?(:CAP_SUPPORTS_DETACH_KERNEL_DRIVER)
       handle.set_configuration(1) rescue nil
       handle.claim_interface(INTERFACE)
       # handle.clear_halt endpoint0
